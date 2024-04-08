@@ -3,7 +3,7 @@
 You are tasked with building a web application that allows users to create and manage their to-do lists. The application should consist of a responsive webpage built in React, and an API built in PHP Laravel to store and manage the to-do lists.
 
 ### The repositories
-The [frontend repository](https://github.com/corelabbr/corelab-web-challenge)
+The [frontend repository](https://github.com/corelabbr/corelab-challenge-web-app-php)
 
 If you feel more comfortable, you can pick another React framework and show us your skills.
 
