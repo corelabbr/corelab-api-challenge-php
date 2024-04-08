@@ -3,7 +3,7 @@
 Você tem a tarefa de criar um aplicativo da Web que permita aos usuários criar e gerenciar suas listas de tarefas. O aplicativo deve consistir em uma página da Web responsiva construída em React e uma API construída em PHP Laravel para armazenar e gerenciar as listas de tarefas.
 
 ### Os repositórios
-O [repositório frontend](https://github.com/corelabbr/corelab-web-challenge)
+O [repositório frontend](https://github.com/corelabbr/corelab-challenge-web-app-php)
 
 Se você se sentir mais confortável, pode escolher outro framework React e nos mostrar suas habilidades.
 
