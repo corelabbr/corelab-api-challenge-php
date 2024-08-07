@@ -9,4 +9,6 @@ Route::get('/todos/favorites', [TodosController::class, 'getFavorites']);
 Route::get('/todos/others', [TodosController::class, 'getOthersTodos']);
 Route::post('/todos/create', [TodosController::class, 'store']);
 Route::patch('/todos/{todo}/update', [TodosController::class, 'update']);
+Route::patch('/todos/{todo}/update/color', [TodosController::class, 'setTodoColor']);
+Route::patch('/todos/{todo}/update/favorite', [TodosController::class, 'favoriteTodo']);
 Route::delete('/todos/{todo}/delete', [TodosController::class, 'delete']);

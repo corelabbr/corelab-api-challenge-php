@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+
 
 class TodosController extends Controller
 {
@@ -35,13 +37,8 @@ class TodosController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
-
        $todo = Todo::create($request->all());
 
         return response()->json([
@@ -50,18 +47,33 @@ class TodosController extends Controller
         ], 201);
     }
 
-    public function update(Request $request, Todo $todo) 
+    public function update(TodoRequest $request, Todo $todo) 
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
-
        Todo::where('id', $todo->id)->update($request->all());
 
         return response()->json([
             'success' => true,
             'message' => "todo editado com sucesso"
+        ]);
+    }
+
+    public function setTodoColor(Request $request, Todo $todo) 
+    {
+        Todo::where('id', $todo->id)->update(['color' => $request->color]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Cor editada com sucesso"
+        ]);
+    }
+
+    public function favoriteTodo(Request $request, Todo $todo) 
+    {
+        Todo::where('id', $todo->id)->update(['favorite' => $request->favorite]);
+
+        return response()->json([
+            'success' => true,
+            'message' => "Cor editada com sucesso"
         ]);
     }
 
