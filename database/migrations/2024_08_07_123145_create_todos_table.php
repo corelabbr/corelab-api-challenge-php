@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
-            $table->string('tite');
+            $table->string('title');
             $table->string('description');
             $table->string('color')->default('white');
             $table->boolean('favorite')->default(false);
