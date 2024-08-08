@@ -19,6 +19,8 @@ class File extends Model
         'mime_type',
         'original_name',
         'size',
+        'fileable_id',
+        'fileable_type',
     ];
 
     /**
@@ -47,6 +49,6 @@ class File extends Model
 
     function getPathAttribute()
     {
-        return storage_path('app/files/' . $this->name);
+        return storage_path('app/public/files/' . $this->name);
     }
 }

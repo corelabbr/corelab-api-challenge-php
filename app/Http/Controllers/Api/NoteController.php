@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\{StoreNoteRequest,UpdateNoteRequest};
@@ -12,9 +13,7 @@ class NoteController extends Controller
 {
     public function index()
     {
-        return NoteResource::collection(
-            Note::all()
-        );
+        return NoteResource::collection(Note::with('file')->get());
     }
 
     public function store(StoreNoteRequest $request)
@@ -24,15 +23,13 @@ class NoteController extends Controller
         return DB::transaction(function () use ($validated) {
             $note = Note::create($validated);
 
-            // TODO: implement file upload if needed
-
             return new NoteResource($note);
         });
     }
 
-    public function show($id)
+    public function show(Note $note)
     {
-        return new NoteResource(Note::findOrFail($id));
+        return new NoteResource($note->load('file'));
     }
 
     public function update(UpdateNoteRequest $request, Note $note)
@@ -41,8 +38,6 @@ class NoteController extends Controller
 
         return DB::transaction(function () use ($validated, $note) {
             $note->update($validated);
-
-            // TODO: implement file upload if needed
 
             return new NoteResource($note);
         });
@@ -60,5 +55,17 @@ class NoteController extends Controller
 
             return response()->noContent();
         });
+    }
+
+    public function attachFile(Request $request, Note $note)
+    {
+        $note->addFileFromRequest($request);
+        return new NoteResource($note);
+    }
+
+    public function detachFile(Note $note)
+    {
+        $note->file->delete();
+        return new NoteResource($note);
     }
 }
