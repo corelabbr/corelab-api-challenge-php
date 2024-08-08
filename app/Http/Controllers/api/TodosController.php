@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoRequest;
+use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
@@ -14,67 +15,49 @@ class TodosController extends Controller
     {
         $todos = Todo::all();
         
-        return response()->json([
-            'todos' => $todos
-        ]);
+        return TodoResource::collection($todos);
     }
 
     public function getFavorites()
     {
         $todos = Todo::where('favorite', 1)->get();
-        
-        return response()->json([
-            'todos' => $todos
-        ]);
+
+        return TodoResource::collection($todos);
     }
 
     public function getOthersTodos()
     {
         $todos = Todo::where('favorite', 0)->get();
         
-        return response()->json([
-            'todos' => $todos
-        ]);
+        return TodoResource::collection($todos);
     }
 
     public function store(TodoRequest $request)
     {
-       $todo = Todo::create($request->all());
+       $todo = Todo::create($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'todo' => $todo
-        ], 201);
+       return new TodoResource($todo);
     }
 
     public function update(TodoRequest $request, Todo $todo) 
     {
-       Todo::where('id', $todo->id)->update($request->all());
+       $todo->update($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'message' => "todo editado com sucesso"
-        ]);
+        return new TodoResource($todo);
     }
 
     public function setTodoColor(Request $request, Todo $todo) 
     {
-        Todo::where('id', $todo->id)->update(['color' => $request->color]);
+        $todo->update(['color' => $request->color]);
 
-        return response()->json([
-            'success' => true,
-            'message' => "Cor editada com sucesso"
-        ]);
+        return new TodoResource($todo);
     }
 
     public function favoriteTodo(Request $request, Todo $todo) 
     {
-        Todo::where('id', $todo->id)->update(['favorite' => $request->favorite]);
+        $todo->update(['favorite' => $request->favorite]);
 
-        return response()->json([
-            'success' => true,
-            'message' => "Cor editada com sucesso"
-        ]);
+        return new TodoResource($todo);
     }
 
     public function delete(Todo $todo)
@@ -83,7 +66,7 @@ class TodosController extends Controller
 
        return response()->json([
             'success' => true,
-            'message' => 'todo deletada com sucesso'
+            'message' => 'Todo successfully deleted'
         ]);
     }
 }
