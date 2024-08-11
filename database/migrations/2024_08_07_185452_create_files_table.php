@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('mime_type');
-            $table->string('original_name');
             $table->unsignedBigInteger('size');
             // morphs method creates two columns: fileable_id and fileable_type
             $table->morphs('fileable');

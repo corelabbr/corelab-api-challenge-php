@@ -24,7 +24,8 @@ class UpdateNoteRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'file' => 'nullable|file|max:10240',
+            'color' => 'nullable|string',
+            'file' => ['nullable', 'string', new \App\Rules\Base64],
         ];
     }
 }

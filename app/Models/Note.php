@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Actions\UploadFile;
+use App\Actions\StoreBase64File;
+use Illuminate\Support\Facades\Storage;
 
 class Note extends Model
 {
@@ -18,6 +19,12 @@ class Note extends Model
     protected $fillable = [
         'title',
         'content',
+        'is_favorite',
+        'color',
+    ];
+
+    protected $casts = [
+        'is_favorite' => 'boolean',
     ];
 
     /**
@@ -30,10 +37,18 @@ class Note extends Model
 
     public function addFileFromRequest($request)
     {
-        $file = $request->file('file');
+        $file = $request->input('file');
 
         if($file) {
-            (new UploadFile($file, $this))->handle();
+            (new StoreBase64File($file, $this))->handle();
+        }
+    }
+
+    public function removeFile()
+    {
+        if($this->file) {
+            Storage::disk('public')->delete('files/' . $this->file->name);
+            $this->file->delete();
         }
     }
 }

@@ -18,6 +18,8 @@ class NoteResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'is_favorite' => $this->is_favorite,
+            'color' => $this->color,
             'file' => isset($this->file) ? new FileResource($this->file) : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

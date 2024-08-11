@@ -11,9 +11,15 @@ use App\Models\Note;
 
 class NoteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return NoteResource::collection(Note::with('file')->get());
+        return NoteResource::collection(
+            Note::with('file')
+                ->when($request->title, function ($query, $title) {
+                    return $query->where('title', 'like', "%$title%");
+                })
+                ->get()
+        );
     }
 
     public function store(StoreNoteRequest $request)
@@ -22,24 +28,31 @@ class NoteController extends Controller
 
         return DB::transaction(function () use ($validated) {
             $note = Note::create($validated);
-
             return new NoteResource($note);
         });
     }
 
     public function show(Note $note)
     {
-        return new NoteResource($note->load('file'));
+        return new NoteResource($note);
     }
 
     public function update(UpdateNoteRequest $request, Note $note)
     {
         $validated = $request->validated();
 
-        return DB::transaction(function () use ($validated, $note) {
+        return DB::transaction(function () use ($request, $validated, $note) {
             $note->update($validated);
 
-            return new NoteResource($note);
+            if($request->has('file')) {
+                $note->removeFile();
+
+                if($validated['file'] != null) {
+                    $note->addFileFromRequest($request);
+                }
+            }
+
+            return new NoteResource($note->load('file'));
         });
     }
 
@@ -48,7 +61,7 @@ class NoteController extends Controller
         return DB::transaction(function () use ($note) {
             // delete the file if it exists
             if($note->file){
-                $note->file->delete();
+                $note->removeFile();
             }
 
             $note->delete();
@@ -57,15 +70,9 @@ class NoteController extends Controller
         });
     }
 
-    public function attachFile(Request $request, Note $note)
+    public function toggleFavorite(Note $note)
     {
-        $note->addFileFromRequest($request);
-        return new NoteResource($note);
-    }
-
-    public function detachFile(Note $note)
-    {
-        $note->file->delete();
+        $note->update(['is_favorite' => !$note->is_favorite]);
         return new NoteResource($note);
     }
 }
