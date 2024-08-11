@@ -1,1 +1,0 @@
-echo "Caminho atual: $(pwd)"
