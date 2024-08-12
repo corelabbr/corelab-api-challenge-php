@@ -80,22 +80,22 @@ Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306
 ./vendor/bin/sail up -d
 ```
 
-6. Execute as migrations para criar as tabelas no banco de dados:
+6. Crie a APP_KEY do projeto:
+
+``` bash
+./vendor/bin/sail artisan key:generate
+```
+
+7. Execute as migrations para criar as tabelas no banco de dados:
 
 ``` bash
 ./vendor/bin/sail artisan migrate
 ```
 
-7. Crie um link simbólico para conseguir visualizar os uploads:
+8. Crie um link simbólico para visualizar os uploads pelo frontend:
 
 ``` bash
 ./vendor/bin/sail artisan storage:link
-```
-
-8. Crie a APP_KEY do projeto:
-
-``` bash
-./vendor/bin/sail artisan key:generate
 ```
 
 9. Pronto! o projeto estará rodando em um ambiente Dockerizado, pronto para ser utilizado localmente acessando o [localhost](http://localhost:8000)
