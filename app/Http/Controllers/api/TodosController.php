@@ -18,20 +18,6 @@ class TodosController extends Controller
         return TodoResource::collection($todos);
     }
 
-    public function getFavorites()
-    {
-        $todos = Todo::where('favorite', 1)->get();
-
-        return TodoResource::collection($todos);
-    }
-
-    public function getOthersTodos()
-    {
-        $todos = Todo::where('favorite', 0)->get();
-        
-        return TodoResource::collection($todos);
-    }
-
     public function store(TodoRequest $request)
     {
        $todo = Todo::create($request->validated());

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('color')->default('white');
+            $table->string('color')->default('#FFFFFF');
             $table->boolean('favorite')->default(false);
             $table->timestamps();
         });
