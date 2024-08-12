@@ -1,4 +1,4 @@
-# Desafio Backend
+# Desafio Backend - Corelab
 
 API para o sistema de anotações, responsável por lidar com o gerenciamento das notas.
 
