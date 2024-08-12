@@ -13,7 +13,7 @@ API para o sistema de anotações, responsável por lidar com o gerenciamento da
 
 <ul>
     <li>Composer</li>
-    <li>PHP ^8.0</li>
+    <li>PHP 8.0 ou superior</li>
     <li>GIT</li>
 </ul>
 
