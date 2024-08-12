@@ -144,23 +144,22 @@ DB_CONNECTION=sqlite
 # DB_PASSWORD=
 ```
 
-5. Execute as migrations para criar as tabelas no banco de dados:
+5. Crie a APP_KEY do projeto:
+
+``` bash
+php artisan key:generate
+```
+
+6. Execute as migrations para criar as tabelas no banco de dados:
 
 ``` bash
 php artisan migrate
 ```
 
-6. Crie um link simbólico para conseguir visualizar os uploads:
+7. Crie um link simbólico para conseguir visualizar os uploads:
 
 ``` bash
 php artisan storage:link
-```
-
-
-7. Crie a APP_KEY do projeto:
-
-``` bash
-./vendor/bin/sail artisan key:generate
 ```
 
 8. Por último, inicie o servidor local do Laravel:
