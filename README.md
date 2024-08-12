@@ -5,16 +5,16 @@ API para o sistema de anotações, responsável por lidar com o gerenciamento da
 ## Tecnologias
 
 <ul>
-    <li>Laravel</li>
-    <li>MySQL</li>
+    <li><a href='https://laravel.com/'>Laravel</a></li>
+    <li><a href='https://www.mysql.com/'>MySQL</a></li>
 </ul>
 
 ## Requisitos
 
 <ul>
-    <li>Composer</li>
-    <li>PHP 8.0 ou superior</li>
-    <li>GIT</li>
+    <li><a href='https://getcomposer.org/'>Composer</a></li>
+    <li><a href='https://www.php.net/downloads.php'>PHP 8.0 ou superior</a></li>
+    <li><a href='https://git-scm.com/'>GIT</a></li>
 </ul>
 
 ## Instalação
@@ -50,7 +50,7 @@ Realize as migrations:
     php artisan migrate
 ```
 
-Agora está tudo pronto para rodar o projeto:
+Execute o projeto:
 ```bash
     php artisan serve
 ```
