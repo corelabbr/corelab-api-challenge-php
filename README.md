@@ -6,7 +6,7 @@
 
 ## 📝 Sistema de anotações e lembretes
 
-Olá! Este repositório contém o backend da minha solução para o desafio da Corelab, desenvolvido em Laravel. Este backend é responsável por gerenciar as operações das anotações, fazer uploads e mais.
+Olá! Este repositório contém o backend da minha solução para o desafio da Corelab, desenvolvido em Laravel. Este backend é responsável por gerenciar as operações das anotações.
 
 Se precisar entrar em contato, você pode me encontrar no [LinkedIn](https://www.linkedin.com/in/giovani-appezzato-414a6424b/) ou pelo e-mail giovani.appezzato@gmail.com.
 
@@ -72,7 +72,7 @@ DB_PASSWORD=password
 # FORWARD_DB_PORT=33062
 ```
 
-Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306 da sua maquina.
+Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306 da sua máquina.
 
 5. Inicie os containers Docker usando o Laravel Sail:
 
@@ -127,7 +127,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Como é um projeto pequeno, se você preferir, pode rodar o projeto com o banco de dados local [SQLite](https://www.sqlite.org/)
+Como alternativa, você pode usar o banco de dados local [SQLite](https://www.sqlite.org/):
 
 ``` bash
 DB_CONNECTION=sqlite
@@ -156,4 +156,4 @@ php artisan storage:link
 php artisan serve
 ```
 
-8. Pronto! o projeto estará rodando localmente sem o Docker no endereço ip fornecido no terminal após a inicialização do servidor acima.
+8. Pronto! O projeto estará rodando localmente no endereço IP fornecido pelo terminal após a inicialização do servidor.
