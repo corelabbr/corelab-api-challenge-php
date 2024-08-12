@@ -35,12 +35,17 @@ class Note extends Model
         return $this->morphOne(File::class, 'fileable');
     }
 
-    public function addFileFromRequest($request)
+    public function syncFileFromRequest($request)
     {
-        $file = $request->input('file');
+        if($request->has('file')) {
+            // Remove the old file if it exists
+            $this->removeFile();
 
-        if($file) {
-            (new StoreBase64File($file, $this))->handle();
+            $file = $request->input('file');
+
+            if($file != null) {
+                (new StoreBase64File($file, $this))->handle();
+            }
         }
     }
 

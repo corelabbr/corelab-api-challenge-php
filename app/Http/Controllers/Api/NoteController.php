@@ -44,13 +44,7 @@ class NoteController extends Controller
         return DB::transaction(function () use ($request, $validated, $note) {
             $note->update($validated);
 
-            if($request->has('file')) {
-                $note->removeFile();
-
-                if($validated['file'] != null) {
-                    $note->addFileFromRequest($request);
-                }
-            }
+            $note->syncFileFromRequest($request);
 
             return new NoteResource($note->load('file'));
         });
