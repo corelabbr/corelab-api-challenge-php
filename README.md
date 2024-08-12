@@ -1,80 +1,171 @@
-## Corelab Challenge:
+<p align="center">
+    <a href="https://www.corelab.com.br/" target="_blank"> 
+        <img src="./public/images/corelab.png" width="200" style="margin-bottom: 40px;">    
+    </a>
+</p>
 
-You are tasked with building a web application that allows users to create and manage their to-do lists. The application should consist of a responsive webpage built in React, and an API built in PHP Laravel to store and manage the to-do lists.
+## 📝 Sistema de anotações e lembretes
 
-### The repositories
-The [frontend repository](https://github.com/corelabbr/corelab-challenge-web-app-php)
+Olá! Este repositório contém o backend da minha solução para o desafio da Corelab, desenvolvido em Laravel. Este backend é responsável por gerenciar as operações das anotações.
 
-If you feel more comfortable, you can pick another React framework and show us your skills.
+Se precisar entrar em contato, você pode me encontrar no [LinkedIn](https://www.linkedin.com/in/giovani-appezzato-414a6424b/) ou pelo e-mail giovani.appezzato@gmail.com.
 
-The [backend repository](https://github.com/corelabbr/corelab-api-challenge-php)
+## 🚀 Começando
 
-If you feel more comfortable, you can pick another PHP framework and show us your skills.
+Siga as instruções abaixo para configurar o ambiente e rodar o backend do projeto localmente. Existem duas formas de instalar o projeto: com Docker utilizando Laravel Sail e sem Docker.
 
-### The Layout
-Open the [layout mockup](https://www.figma.com/file/sQrUVHTlyogq3qGdkqGTXN/mockup?node-id=7%3A2&t=ANTOTiqjqGWYuoUr-0) in desktop and mobile version and follow this design as much as possible.
+### 📋 Pré-requisitos
 
-### The application should have the following functionality:
+Antes de começar, verifique se você possui as seguintes dependências instaladas. Caso contrário, faça o download e instale-as para prosseguir:
 
-1. Users should be able to create, read, update, and delete to-do items using the API.
-2. Users should be able to mark an item as a favorite.
-3. Users should be able to set a color for each to-do item.
-4. The React frontend should display the user's to-do list in a responsive and visually appealing manner, with the ability to filter by favorite items and color.
-5. The favorited items should be displayed at the top of the list.
+* [Git](https://git-scm.com/downloads) 
+* [NPM](https://www.npmjs.com/)
+* [Composer](https://getcomposer.org/)
+* [PHP ^8.3](https://www.php.net/releases/8.3/en.php)
+* [Docker (Opcional)](https://www.docker.com/)
 
-### Technical Requirements:
-1. The backend API should be built in PHP Laravel framework and use a database of your choice (e.g., MySQL, PostgreSQL, etc.).
-2. The frontend should be built in React and use modern web development tools and best practices.
-3. The application should be responsive and visually appealing.
+### 🐳 Instalação (com Docker e Laravel Sail)
 
-### Deliverables:
-1. A link to a GitHub repository containing the complete source code for the project.
-2. A written description of how to set up and run the application locally.
+Se você optar por rodar o projeto usando Docker, essa é a abordagem recomendada, especialmente se estiver em um ambiente Linux. Para usuários do Windows, é necessário utilizar o [WSL 2 (Windows Subsystem for Linux)](https://learn.microsoft.com/pt-br/windows/wsl/install)  em conjunto com o Docker Desktop. Caso contrário, pule para a instalação do projeto sem o Docker.
 
-### Evaluation Criteria:
-1. Code Quality
-2. Code Format
-3. Code Performance
-4. Frontend Design
-5. If your code is Easily Readable
-6. Mobile First approach
-7. Code Responsibility
-8. Features Work
-9. Responsiveness
-10. Does the application meet the functionality requirements listed above?
-11. Is the code well-organized, easy to read, and well-documented?
-12. Are modern web development tools and best practices used?
-13. Is the application visually appealing and responsive?
+1. Clone o repositório:
 
-### Backend
-Repository: 
-1. PHP: ^7.4
-2. Laravel: ^8.0
-3. Database: Choose your own, you can even use PostgreSQL.
+``` bash
+git clone https://github.com/GiovaniAppezzato/corelab-api-challenge-php
+```
 
-### Frontend
-Repository: 
-1. Node: ^16.15.0
-2. NPM: ^8.5.5
-3. Framework: React TS
-4. Sass or other preprocessor
+2. Navegue até a pasta do projeto e execute o comando para instalar todas as dependências necessárias:
 
-### Want to impress us even more?
-If you feel comfortable and want to impress us even more, you can do the following:
+``` bash
+composer install
+```
 
-1. Work on correct types and interfaces
-2. Work on eslint rules
-3. Work prettier config
-4. Work on docker containers
-5. Work on tests
-6. Work on CI/CD
+Caso não tenha o Composer instalado localmente, você pode utilizar o seguinte comando para instalar as dependências diretamente no container do Laravel Sail:
 
-### What to do when you finish?
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
-Create a file PULL_REQUEST.md where you will describe what you did and how in as much detail as possible. Feel free to add videos for better explanation.
+3. Crie o arquivo de configuração copiando o exemplo fornecido:
 
-Create a new pull request using the same branch name for Backend and Frontend
+``` bash
+cp .env.example .env
+```
 
-Send us the pull requests and that's all!
+4. Abra o arquivo `.env` e configure as variáveis de ambiente conforme necessário. Certifique-se de configurar corretamente as informações do banco de dados e portas necessárias:
 
-#### Good luck! The sky is the limit 🚀
+``` bash
+APP_URL=http://localhost
+APP_PORT=8000
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+# FORWARD_DB_PORT=33062
+```
+
+Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306 da sua máquina.
+
+5. Inicie os containers Docker usando o Laravel Sail:
+
+``` bash
+./vendor/bin/sail up -d
+```
+
+6. Crie a APP_KEY do projeto:
+
+``` bash
+./vendor/bin/sail artisan key:generate
+```
+
+7. Execute as migrations para criar as tabelas no banco de dados:
+
+``` bash
+./vendor/bin/sail artisan migrate
+```
+
+8. Crie um link simbólico para visualizar os uploads pelo frontend:
+
+``` bash
+./vendor/bin/sail artisan storage:link
+```
+
+9. Pronto! o projeto estará rodando em um ambiente Dockerizado, pronto para ser utilizado localmente acessando o [localhost](http://localhost:8000)
+
+### 🔧 Instalação (sem Docker)
+
+1. Clone o repositório:
+
+``` bash
+git clone https://github.com/GiovaniAppezzato/corelab-api-challenge-php
+```
+
+2. Navegue até a pasta do projeto e execute o comando para instalar todas as dependências necessárias:
+
+``` bash
+composer install
+```
+
+3. Crie o arquivo de configuração copiando o exemplo fornecido:
+
+``` bash
+cp .env.example .env
+```
+
+4. Abra o arquivo `.env` e configure as variáveis de ambiente conforme necessário. Certifique-se de configurar corretamente as informações do banco de dados:
+
+``` bash
+# Fill in these fields with your information
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Como alternativa, você pode usar o banco de dados local [SQLite](https://www.sqlite.org/):
+
+``` bash
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+5. Crie a APP_KEY do projeto:
+
+``` bash
+php artisan key:generate
+```
+
+6. Execute as migrations para criar as tabelas no banco de dados:
+
+``` bash
+php artisan migrate
+```
+
+7. Crie um link simbólico para conseguir visualizar os uploads:
+
+``` bash
+php artisan storage:link
+```
+
+8. Por último, inicie o servidor local do Laravel:
+
+``` bash
+php artisan serve
+```
+
+9. Pronto! O projeto estará rodando localmente no endereço IP fornecido pelo terminal após a inicialização do servidor.
