@@ -92,7 +92,13 @@ Descomente a linha FORWARD_DB_PORT caso já tenha um MySQL rodando na porta 3306
 ./vendor/bin/sail artisan storage:link
 ```
 
-8. Pronto! o projeto estará rodando em um ambiente Dockerizado, pronto para ser utilizado localmente acessando o [localhost](http://localhost:8000)
+8. Crie a APP_KEY do projeto:
+
+``` bash
+./vendor/bin/sail artisan key:generate
+```
+
+9. Pronto! o projeto estará rodando em um ambiente Dockerizado, pronto para ser utilizado localmente acessando o [localhost](http://localhost:8000)
 
 ### 🔧 Instalação (sem Docker)
 
@@ -150,10 +156,17 @@ php artisan migrate
 php artisan storage:link
 ```
 
-7. Por último, inicie o servidor local do Laravel:
+
+7. Crie a APP_KEY do projeto:
+
+``` bash
+./vendor/bin/sail artisan key:generate
+```
+
+8. Por último, inicie o servidor local do Laravel:
 
 ``` bash
 php artisan serve
 ```
 
-8. Pronto! O projeto estará rodando localmente no endereço IP fornecido pelo terminal após a inicialização do servidor.
+9. Pronto! O projeto estará rodando localmente no endereço IP fornecido pelo terminal após a inicialização do servidor.
