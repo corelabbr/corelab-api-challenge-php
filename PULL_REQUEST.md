@@ -42,8 +42,8 @@ Este projeto consiste em uma aplicação web que permite aos usuários criar e g
 
 ## Instalação
 Para começar a trabalhar com a aplicação, você precisará clonar os repositórios do frontend e do backend.
-- **Frontend**: `git clone https://github.com/NikollasBeltrao/corelab-frontend.git`
-- **Backend**: `git clone https://github.com/NikollasBeltrao/corelab-backend.git`
+- **Frontend**: `git clone https://github.com/NikollasBeltrao/corelab-challenge-web-app-php.git`
+- **Backend**: `git clone https://github.com/NikollasBeltrao/corelab-api-challenge-php.git`
 
 
 ### Backend
