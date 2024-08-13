@@ -47,7 +47,7 @@ Para começar a trabalhar com a aplicação, você precisará clonar os reposit�
 
 
 ### Backend
-- No terminal navegue até o diretório do projeto `cd corelab-backend`.
+- No terminal navegue até o diretório do projeto `cd corelab-api-challenge-php`.
 - Altere o arquivo `.env.example` para `.env`.
 - No arquivo `.env`, altere as variáveis do banco para:
 ```
@@ -78,7 +78,7 @@ DB_PASSWORD=root
 **OBS: Dependendo da versão do docker o comando pode ser `docker-compose`.**
 
 ### Frontend
-- No terminal navegue até o diretório do projeto `cd corelab-frontend`.
+- No terminal navegue até o diretório do projeto `cd corelab-challenge-web-app-php`.
 - Altere o arquivo `.env.development.exemple` para `.env.development` e confira na variável `REACT_APP_API_URL` se o caminho e a porta para a API estão corretos.
 
 #### Caso use docker
