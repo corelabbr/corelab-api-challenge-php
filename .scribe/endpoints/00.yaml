@@ -1,0 +1,217 @@
+name: 'Authentication endpoints'
+description: |-
+
+  Authentication endpoints
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/login
+    metadata:
+      groupName: 'Authentication endpoints'
+      groupDescription: |-
+
+        Authentication endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: Login
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'The email of the user. Must be a valid email address.'
+        required: true
+        example: raphaelle37@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: 'The password of the user.'
+        required: true
+        example: eaque
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      email: raphaelle37@example.org
+      password: eaque
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"token": "string"}'
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 401
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 422
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Validation error'
+        custom: []
+      -
+        status: 500
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Server error'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/auth/register
+    metadata:
+      groupName: 'Authentication endpoints'
+      groupDescription: |-
+
+        Authentication endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: Register
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'The name of the user.'
+        required: true
+        example: et
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      email:
+        name: email
+        description: 'The email of the user. Must be a valid email address.'
+        required: true
+        example: bahringer.amber@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      password:
+        name: password
+        description: 'The password of the user.'
+        required: true
+        example: inventore
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      name: et
+      email: bahringer.amber@example.com
+      password: inventore
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"token": "string"}'
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 401
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 422
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Validation error'
+        custom: []
+      -
+        status: 500
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Server error'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/auth/me
+    metadata:
+      groupName: 'Authentication endpoints'
+      groupDescription: |-
+
+        Authentication endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get user data'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"user": {"email": "string", "name": "string"}}'
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 401
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 500
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Server error'
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []

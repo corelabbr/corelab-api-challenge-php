@@ -1,0 +1,194 @@
+openapi: 3.0.3
+info:
+  title: 'CodeLab API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/auth/login:
+    post:
+      summary: ''
+      operationId: postApiAuthLogin
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: string
+                properties:
+                  token:
+                    type: string
+                    example: string
+      tags:
+        - 'Authentication endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user. Example:'
+                  example: dickinson.brittany@example.net
+                password:
+                  type: string
+                  description: 'The password of the user. Example:'
+                  example: 'xdwGj}'
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/register:
+    post:
+      summary: ''
+      operationId: postApiAuthRegister
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: string
+                properties:
+                  token:
+                    type: string
+                    example: string
+      tags:
+        - 'Authentication endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the user. Example:'
+                  example: vero
+                email:
+                  type: string
+                  description: 'The email of the user. Example:'
+                  example: omari62@example.org
+                password:
+                  type: string
+                  description: 'The password of the user. Example:'
+                  example: 9smOhH~VSu\m!X6
+                password_confirmation:
+                  type: string
+                  description: 'The password confirmation. Example:'
+                  example: quasi
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      security: []
+  /api/todo-items:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ''
+      tags:
+        - 'Todo Item Management'
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Todo Item Management'
+  '/api/todo-items/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ''
+      tags:
+        - 'Todo Item Management'
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Todo Item Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: ''
+                  example: 8
+                title:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: onc
+                completed:
+                  type: boolean
+                  description: ''
+                  example: false
+              required:
+                - id
+                - title
+                - completed
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - 'Todo Item Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the todo item.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: 'Authentication endpoints'
+    description: "\nAuthentication endpoints"
+  -
+    name: 'Todo Item Management'
+    description: "\nTodo item management endpoints"

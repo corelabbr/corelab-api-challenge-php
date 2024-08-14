@@ -1,0 +1,471 @@
+name: 'Todo Item Management'
+description: |-
+
+  Todo item management endpoints
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/todo/stats
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get post stats'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"total": "integer", "completed": "integer", "pending": "integer", "overdue": "integer"}'
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6kDhVc34ZedPvfE8b5a6ag1'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/todo
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: \App\Models\TodoItem
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 204
+        content: 'null'
+        headers: []
+        description: 'No items found'
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer DvEkf68d51Pb63aVagceZ4h'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/todo
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store anewly created resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: 'The title of the todo item. Must not be greater than 255 characters. Must be at least 3 characters.'
+        required: true
+        example: xrswfdhjwxtdojkaxqeuhixmfvjtpwcaqfhhmiaytjfejkceizyceiuotpu
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      description:
+        name: description
+        description: 'The description of the todo item. Must be at least 3 characters.'
+        required: true
+        example: 'Molestias at placeat explicabo recusandae cupiditate animi perspiciatis ad.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      completed:
+        name: completed
+        description: 'The completion status of the todo item.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      color:
+        name: color
+        description: 'The color of the todo item.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      due_date:
+        name: due_date
+        description: 'The due date of the todo item. Must be a valid date.'
+        required: false
+        example: '2024-08-13T14:20:13'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      favorite:
+        name: favorite
+        description: 'The favorite status of the todo item.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      title: xrswfdhjwxtdojkaxqeuhixmfvjtpwcaqfhhmiaytjfejkceizyceiuotpu
+      description: 'Molestias at placeat explicabo recusandae cupiditate animi perspiciatis ad.'
+      completed: true
+      due_date: '2024-08-13T14:20:13'
+      favorite: true
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: \App\Models\TodoItem
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 417
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Failed to create item'
+        custom: []
+      -
+        status: 422
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Validation error'
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ecbg3ZkDvh66145EdVP8afa'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/todo/{todo_id}'
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      todo_id:
+        name: todo_id
+        description: 'The ID of the todo.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      todo_id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: \App\Models\TodoItem
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 348cbdg1D56afZhak6EPevV'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/todo/{todo_id}'
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      todo_id:
+        name: todo_id
+        description: 'The ID of the todo.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      todo_id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: 'The title of the todo item. Must not be greater than 255 characters. Must be at least 3 characters.'
+        required: false
+        example: awsmtzuqluvxnkaslitocxhhsbndmkcgkunff
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      description:
+        name: description
+        description: 'The description of the todo item.'
+        required: false
+        example: 'Et aut eum dignissimos soluta.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      completed:
+        name: completed
+        description: 'The completion status of the todo item.'
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      color:
+        name: color
+        description: 'The color of the todo item.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      due_date:
+        name: due_date
+        description: 'The due date of the todo item. Must be a valid date.'
+        required: false
+        example: '2024-08-13T14:20:14'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+      favorite:
+        name: favorite
+        description: 'The favorite status of the todo item.'
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanBodyParameters:
+      title: awsmtzuqluvxnkaslitocxhhsbndmkcgkunff
+      description: 'Et aut eum dignissimos soluta.'
+      completed: true
+      due_date: '2024-08-13T14:20:14'
+      favorite: false
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: \App\Models\TodoItem
+        headers: []
+        description: Success
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+      -
+        status: 417
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Failed to update item'
+        custom: []
+      -
+        status: 422
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Validation error'
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer a6kcvb41gZa8fPVDE3h6ed5'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/todo/{todo_id}'
+    metadata:
+      groupName: 'Todo Item Management'
+      groupDescription: |-
+
+        Todo item management endpoints
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      todo_id:
+        name: todo_id
+        description: 'The ID of the todo.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        custom: []
+    cleanUrlParameters:
+      todo_id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"message": "string"}'
+        headers: []
+        description: 'Item deleted'
+        custom: []
+      -
+        status: 403
+        content: '{"message": "string"}'
+        headers: []
+        description: Unauthorized
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer bc8e3Dd1k5EVhvfaZg4a6P6'
+    controller: null
+    method: null
+    route: null
+    custom: []

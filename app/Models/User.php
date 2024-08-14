@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Interfaces\JwtUser;
+use App\Trait\JwtAuth;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JwtUser
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUuids, JwtAuth;
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +47,37 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's todo items.
+     */
+    public function todoItems(): HasMany
+    {
+        return $this->hasMany(TodoItem::class);
+    }
+
+    public function getJwtId(): mixed
+    {
+        return $this->id;
+    }
+
+    public function getJwtClaims(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
+
+    public static function create(array $credentials): User
+    {
+        $user = new User();
+        $user->name = $credentials['name'];
+        $user->email = $credentials['email'];
+        $user->password = Hash::make($credentials['password']);
+        $user->save();
+
+        return $user;
     }
 }

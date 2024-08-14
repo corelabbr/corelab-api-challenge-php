@@ -1,0 +1,547 @@
+openapi: 3.0.3
+info:
+  title: 'Core Notes API Documentation'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/auth/login:
+    post:
+      summary: Login
+      operationId: login
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: string
+                properties:
+                  token:
+                    type: string
+                    example: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        422:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Authentication endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'The email of the user. Must be a valid email address.'
+                  example: raphaelle37@example.org
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: eaque
+              required:
+                - email
+                - password
+      security: []
+  /api/auth/register:
+    post:
+      summary: Register
+      operationId: register
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: string
+                properties:
+                  token:
+                    type: string
+                    example: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        422:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Authentication endpoints'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the user.'
+                  example: et
+                email:
+                  type: string
+                  description: 'The email of the user. Must be a valid email address.'
+                  example: bahringer.amber@example.com
+                password:
+                  type: string
+                  description: 'The password of the user.'
+                  example: inventore
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/auth/me:
+    get:
+      summary: 'Get user data'
+      operationId: getUserData
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  user:
+                    email: string
+                    name: string
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: string
+                      name:
+                        type: string
+                        example: string
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        500:
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Authentication endpoints'
+      security: []
+  /api/todo/stats:
+    get:
+      summary: 'Get post stats'
+      operationId: getPostStats
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  total: integer
+                  completed: integer
+                  pending: integer
+                  overdue: integer
+                properties:
+                  total:
+                    type: string
+                    example: integer
+                  completed:
+                    type: string
+                    example: integer
+                  pending:
+                    type: string
+                    example: integer
+                  overdue:
+                    type: string
+                    example: integer
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+  /api/todo:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: \App\Models\TodoItem
+        204:
+          description: 'No items found'
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+    post:
+      summary: 'Store anewly created resource in storage.'
+      operationId: storeAnewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: \App\Models\TodoItem
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        417:
+          description: 'Failed to create item'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        422:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'The title of the todo item. Must not be greater than 255 characters. Must be at least 3 characters.'
+                  example: xrswfdhjwxtdojkaxqeuhixmfvjtpwcaqfhhmiaytjfejkceizyceiuotpu
+                description:
+                  type: string
+                  description: 'The description of the todo item. Must be at least 3 characters.'
+                  example: 'Molestias at placeat explicabo recusandae cupiditate animi perspiciatis ad.'
+                completed:
+                  type: boolean
+                  description: 'The completion status of the todo item.'
+                  example: true
+                color:
+                  type: string
+                  description: 'The color of the todo item.'
+                  example: null
+                due_date:
+                  type: string
+                  description: 'The due date of the todo item. Must be a valid date.'
+                  example: '2024-08-13T14:20:13'
+                favorite:
+                  type: boolean
+                  description: 'The favorite status of the todo item.'
+                  example: true
+              required:
+                - title
+                - description
+  '/api/todo/{todo_id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: \App\Models\TodoItem
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: \App\Models\TodoItem
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        417:
+          description: 'Failed to update item'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        422:
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'The title of the todo item. Must not be greater than 255 characters. Must be at least 3 characters.'
+                  example: awsmtzuqluvxnkaslitocxhhsbndmkcgkunff
+                description:
+                  type: string
+                  description: 'The description of the todo item.'
+                  example: 'Et aut eum dignissimos soluta.'
+                completed:
+                  type: boolean
+                  description: 'The completion status of the todo item.'
+                  example: true
+                color:
+                  type: string
+                  description: 'The color of the todo item.'
+                  example: null
+                due_date:
+                  type: string
+                  description: 'The due date of the todo item. Must be a valid date.'
+                  example: '2024-08-13T14:20:14'
+                favorite:
+                  type: boolean
+                  description: 'The favorite status of the todo item.'
+                  example: false
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: 'Item deleted'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+        403:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: string
+                properties:
+                  message:
+                    type: string
+                    example: string
+      tags:
+        - 'Todo Item Management'
+    parameters:
+      -
+        in: path
+        name: todo_id
+        description: 'The ID of the todo.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: 'Authentication endpoints'
+    description: "\nAuthentication endpoints"
+  -
+    name: 'Todo Item Management'
+    description: "\nTodo item management endpoints"
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by using the `/auth/login` endpoint.'
+security:
+  -
+    default: []
