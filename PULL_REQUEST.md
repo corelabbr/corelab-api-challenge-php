@@ -1,4 +1,4 @@
-Para atender aos pré-requisitos do desenvolvimento do aplicativo de notas, foi criado um aplicativo responsivo utilizando as linguagens React e Laravel. O aplicativo oferece as seguintes funcionalidades:
+Para atender aos pré-requisitos do desenvolvimento do aplicativo de notas, foi criado um aplicativo responsivo utilizando React e Laravel. O aplicativo oferece as seguintes funcionalidades:
 
 Criação, leitura e exclusão de tarefas
 Marcação de itens como favoritos e aplicação de cores nas notas
