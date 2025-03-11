@@ -1,80 +1,277 @@
-## Corelab Challenge:
+# API de Bloco de Notas
 
-You are tasked with building a web application that allows users to create and manage their to-do lists. The application should consist of a responsive webpage built in React, and an API built in PHP Laravel to store and manage the to-do lists.
+Esta é uma API para um bloco de notas simples, construída usando Laravel. A API permite aos usuários autenticados criar, ler, atualizar e deletar notas. Também oferece funcionalidades de registro, login e gerenciamento de contas de usuário com autenticação via JWT.
 
-### The repositories
-The [frontend repository](https://github.com/corelabbr/corelab-challenge-web-app-php)
+## Aplicativo Java
 
-If you feel more comfortable, you can pick another React framework and show us your skills.
+Este repositório também inclui um aplicativo Java que consome a API de Bloco de Notas. O aplicativo permite que você interaja com a API de maneira simples e eficiente.
 
-The [backend repository](https://github.com/corelabbr/corelab-api-challenge-php)
+- **Repositório do Aplicativo Java:** [Clique aqui para acessar o repositório](https://github.com/iCrowleySHR/notepad.git)
 
-If you feel more comfortable, you can pick another PHP framework and show us your skills.
 
-### The Layout
-Open the [layout mockup](https://www.figma.com/file/sQrUVHTlyogq3qGdkqGTXN/mockup?node-id=7%3A2&t=ANTOTiqjqGWYuoUr-0) in desktop and mobile version and follow this design as much as possible.
 
-### The application should have the following functionality:
+## Requisitos
 
-1. Users should be able to create, read, update, and delete to-do items using the API.
-2. Users should be able to mark an item as a favorite.
-3. Users should be able to set a color for each to-do item.
-4. The React frontend should display the user's to-do list in a responsive and visually appealing manner, with the ability to filter by favorite items and color.
-5. The favorited items should be displayed at the top of the list.
+- PHP >= 8.3.4
+- Composer
+- Laravel 11.4.0
+- MySQL
 
-### Technical Requirements:
-1. The backend API should be built in PHP Laravel framework and use a database of your choice (e.g., MySQL, PostgreSQL, etc.).
-2. The frontend should be built in React and use modern web development tools and best practices.
-3. The application should be responsive and visually appealing.
+## Instalação
 
-### Deliverables:
-1. A link to a GitHub repository containing the complete source code for the project.
-2. A written description of how to set up and run the application locally.
+1. Instale as dependências:
+    ```bash
+    composer install
+    ```
+2. Copie o arquivo `.env.example` para `.env` e configure suas variáveis de ambiente:
+    ```bash
+    cp .env.example .env
+    ```
+3. Gere a chave da aplicação:
+    ```bash
+    php artisan key:generate
+    ```
+4. Configure seu banco de dados no arquivo `.env` e execute as migrações:
+    ```bash
+    php artisan migrate
+    ```
 
-### Evaluation Criteria:
-1. Code Quality
-2. Code Format
-3. Code Performance
-4. Frontend Design
-5. If your code is Easily Readable
-6. Mobile First approach
-7. Code Responsibility
-8. Features Work
-9. Responsiveness
-10. Does the application meet the functionality requirements listed above?
-11. Is the code well-organized, easy to read, and well-documented?
-12. Are modern web development tools and best practices used?
-13. Is the application visually appealing and responsive?
+5. Instale o pacote JWT Auth:
+    ```bash
+    composer require tymon/jwt-auth
+    php artisan jwt:secret
+    ```
+    
+6. Rode o servidor local:
+    ```bash
+    php artisan serve
+    ```
 
-### Backend
-Repository: 
-1. PHP: ^7.4
-2. Laravel: ^8.0
-3. Database: Choose your own, you can even use PostgreSQL.
+## Endpoints
 
-### Frontend
-Repository: 
-1. Node: ^16.15.0
-2. NPM: ^8.5.5
-3. Framework: React TS
-4. Sass or other preprocessor
+### Usuários
 
-### Want to impress us even more?
-If you feel comfortable and want to impress us even more, you can do the following:
+#### Registrar Usuário
 
-1. Work on correct types and interfaces
-2. Work on eslint rules
-3. Work prettier config
-4. Work on docker containers
-5. Work on tests
-6. Work on CI/CD
+- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **Método:** `POST`
+- **Parâmetros:**
+  - `name`: Nome do usuário
+  - `email`: Email do usuário
+  - `password`: Senha do usuário
+- **Exemplo de Request:**
+    ```json
+    {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "password": "password"
+    }
+    ```
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "message": "Usuário registrado com sucesso!"
+    }
+    ```
 
-### What to do when you finish?
+#### Login
 
-Create a file PULL_REQUEST.md where you will describe what you did and how in as much detail as possible. Feel free to add videos for better explanation.
+- **URL:** `http://localhost/api_notepad/public/api/v1/users/validate`
+- **Método:** `POST`
+- **Parâmetros:**
+  - `email`: Email do usuário
+  - `password`: Senha do usuário
+- **Exemplo de Request:**
+    ```json
+    {
+        "email": "john@example.com",
+        "password": "password"
+    }
+    ```
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "success": "Usuário autenticado",
+        "name": "Jorge da Silva Pereira",
+        "email": "teste@gustavo.com",
+        "id": 3,
+        "created_at": "2024-05-16T00:19:06.000000Z",
+        "updated_at": "2024-05-16T00:19:06.000000Z",
+        "token": "{token}",
+        "token_type": "bearer"
+    }
+    ```
 
-Create a new pull request using the same branch name for Backend and Frontend
+#### Atualizar Usuário
 
-Send us the pull requests and that's all!
+- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **Método:** `PUT`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Parâmetros:**
+  - `name`: Nome do usuário
+  - `telephone`: Telefone
+  - `email`: Email
+  - `new_password`: Nova senha (se for trocar a senha)
+  - `current_password`: Senha atual (necessária para troca de senha)
+- **Exemplo de Request:**
+    ```json
+    {
+        "name": "João da Silva",
+        "telephone": "123456789",
+        "email": "joao@example.com",
+        "new_password": "newpassword",
+        "current_password": "oldpassword"
+    }
+    ```
 
-#### Good luck! The sky is the limit 🚀
+#### Deletar Usuário
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **Método:** `DELETE`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "success": "Conta apagada com sucesso."
+    }
+    ```
+
+#### Logout
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/users/logout`
+- **Método:** `POST`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "success": "Logout bem sucedido."
+    }
+    ```
+
+### Notas
+
+#### Listar Notas
+
+- **URL:** `/api/notes`
+- **Método:** `GET`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Resposta de Sucesso:**
+    ```json
+    [
+        {
+            "id": 1,
+            "title": "Minha Primeira Nota",
+            "content": "Conteúdo da nota",
+            "created_at": "2023-05-15T14:00:00.000000Z",
+            "updated_at": "2023-05-15T14:00:00.000000Z",
+            "favorite": false,
+            "color": "#FFFF"
+        }
+    ]
+    ```
+
+#### Criar Nota
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/notes`
+- **Método:** `POST`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Parâmetros:**
+  - `title`: Título da nota
+  - `content`: Conteúdo da nota
+  - `id_user`: Usuário que criou a nota
+- **Exemplo de Request:**
+    ```json
+    {
+        "title": "Minha Primeira Nota",
+        "content": "Conteúdo da nota",
+        "id_user": "1"
+    }
+    ```
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "success": "Anotação salva!"
+    }
+    ```
+
+#### Visualizar Nota
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **Método:** `GET`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "id": 1,
+        "title": "Minha Primeira Nota",
+        "content": "Conteúdo da nota",
+        "favorite": false,
+        "color": "#FFFF",
+        "created_at": "2023-05-15T14:00:00.000000Z",
+        "updated_at": "2023-05-15T14:00:00.000000Z"
+    }
+    ```
+
+#### Atualizar Nota
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **Método:** `PUT`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Parâmetros:**
+  - `title`: Título da nota
+  - `content`: Conteúdo da nota
+- **Exemplo de Request:**
+    ```json
+    {
+        "title": "Título Atualizado",
+        "content": "Conteúdo atualizado da nota"
+    }
+    ```
+
+#### Deletar Nota
+
+- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **Método:** `DELETE`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "success": "Nota apagada"
+    }
+    ```
+
+#### Pesquisar Notas
+
+- **URL:** `/api/notes/search/{title}`
+- **Método:** `GET`
+- **Cabeçalho:**
+  - `Authorization`: `Bearer {seu_token_jwt}`
+- **Parâmetros:**
+  - `title`: Título da nota (pode ser parcial)
+- **Resposta de Sucesso:**
+    ```json
+    [
+        {
+            "id": 1,
+            "title": "Minha Primeira Nota",
+            "content": "Conteúdo da nota",
+            "created_at": "2023-05-15T14:00:00.000000Z",
+            "updated_at": "2023-05-15T14:00:00.000000Z",
+            "favorite": false,
+            "color": "#FFFF",
+        }
+    ]
+    ```
+
+## Observações
+
+- O sistema utiliza **JWT** para autenticação, e é necessário gerar o token de autenticação ao fazer login.
+- Para mais detalhes sobre a implementação, consulte o código-fonte.
