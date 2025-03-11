@@ -50,7 +50,7 @@ services:
     phpmyadmin:
         image: 'phpmyadmin:latest'
         ports:
-            - 9090:90
+            - 8080:80
         networks:
             - sail
         environment:
