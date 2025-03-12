@@ -12,7 +12,7 @@ Este repositório também inclui um aplicativo Java que consome a API de Bloco d
 
 Este repositório também inclui um Aplicação React que consome a API de Bloco de Notas.
 
-- **Repositório: ** [Clique aqui para acessar o repositório](https://github.com/iCrowleySHR/corelab-challenge-web-app-php)
+- **Repositório:** [Clique aqui para acessar o repositório](https://github.com/iCrowleySHR/corelab-challenge-web-app-php)
 
 
 
@@ -60,7 +60,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Registrar Usuário
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **URL:** `http://127.0.0.1:8000/api/v1/users/`
 - **Método:** `POST`
 - **Parâmetros:**
   - `name`: Nome do usuário
@@ -83,7 +83,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Login
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/users/validate`
+- **URL:** `http://127.0.0.1:8000/api/v1/users/validate`
 - **Método:** `POST`
 - **Parâmetros:**
   - `email`: Email do usuário
@@ -111,7 +111,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Atualizar Usuário
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **URL:** `http://127.0.0.1:8000/api/v1/users/`
 - **Método:** `PUT`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -134,7 +134,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Deletar Usuário
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/users/`
+- **URL:** `http://127.0.0.1:8000/api/v1/users/`
 - **Método:** `DELETE`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -147,7 +147,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Logout
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/users/logout`
+- **URL:** `http://127.0.0.1:8000/api/v1/users/logout`
 - **Método:** `POST`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -183,7 +183,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Criar Nota
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/notes`
+- **URL:** `http://127.0.0.1:8000/api/v1/notes`
 - **Método:** `POST`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -208,7 +208,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Visualizar Nota
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **URL:** `http://127.0.0.1:8000/api/v1/notes/{id}`
 - **Método:** `GET`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -227,7 +227,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Atualizar Nota
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **URL:** `http://127.0.0.1:8000/api/v1/notes/{id}`
 - **Método:** `PUT`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
@@ -244,7 +244,7 @@ Este repositório também inclui um Aplicação React que consome a API de Bloco
 
 #### Deletar Nota
 
-- **URL:** `http://localhost/api_notepad/public/api/v1/notes/{id}`
+- **URL:** `http://127.0.0.1:8000/api/v1/notes/{id}`
 - **Método:** `DELETE`
 - **Cabeçalho:**
   - `Authorization`: `Bearer {seu_token_jwt}`
