@@ -1,4 +1,4 @@
-# API de Bloco de Notas
+# CoreNotes | API de Bloco de notas
 
 Esta é uma API para um bloco de notas simples, construída usando Laravel. A API permite aos usuários autenticados criar, ler, atualizar e deletar notas. Também oferece funcionalidades de registro, login e gerenciamento de contas de usuário com autenticação via JWT.
 
@@ -7,6 +7,13 @@ Esta é uma API para um bloco de notas simples, construída usando Laravel. A AP
 Este repositório também inclui um aplicativo Java que consome a API de Bloco de Notas. O aplicativo permite que você interaja com a API de maneira simples e eficiente.
 
 - **Repositório do Aplicativo Java:** [Clique aqui para acessar o repositório](https://github.com/iCrowleySHR/notepad.git)
+
+- ## Aplicação React
+
+Este repositório também inclui um Aplicação React que consome a API de Bloco de Notas.
+
+- **Repositório: ** [Clique aqui para acessar o repositório](https://github.com/iCrowleySHR/corelab-challenge-web-app-php)
+
 
 
 
