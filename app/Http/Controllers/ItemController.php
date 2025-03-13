@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Response;
 
 class ItemController 
 {
-    // Retorna uma lista de itens
     public function index(Request $request)
     {
         $orderBy = $request->query('order_by', 'created_at');
@@ -17,14 +16,12 @@ class ItemController
         return response()->json($items);
     }
 
-    // Armazena um novo item
     public function store(Request $request)
     {
         $item = Item::create($request->all());
         return response()->json($item, 201);
     }
 
-    // Mostra um item específico
     public function show($id)
     {
         $item = Item::find($id);
@@ -35,7 +32,6 @@ class ItemController
         }
     }
 
-    // Atualiza um item específico
     public function update(Request $request, $id)
     {
         $item = Item::find($id);
@@ -82,7 +78,6 @@ class ItemController
     }
 
 
-    // Remove um item específico
     public function destroy($id)
     {
         $item = Item::find($id);

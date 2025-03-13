@@ -12,11 +12,11 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
-      - /var/www/vendor  # Add this to preserve container's vendor dir
+      - /var/www/vendor  
       - /var/www/node_modules
     ports:
-      - "8000:8000"  # Laravel
-      - "5173:5173"  # React
+      - "8000:8000" 
+      - "5173:5173" 
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
