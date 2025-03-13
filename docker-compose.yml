@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_react_app
+    networks:
+      - app_network
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - /var/www/vendor  # Add this to preserve container's vendor dir
+      - /var/www/node_modules
+    ports:
+      - "8000:8000"  # Laravel
+      - "5173:5173"  # React
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    networks:
+      - app_network
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: filipe
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_INITDB_ARGS: "--auth-host=md5 --auth-local=md5"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
+networks:
+  app_network:
+    driver: bridge

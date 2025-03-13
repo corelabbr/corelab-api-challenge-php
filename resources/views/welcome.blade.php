@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+    {{-- Carregue os assets do Vite --}}
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx'])
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
