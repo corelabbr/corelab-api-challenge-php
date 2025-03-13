@@ -50,6 +50,34 @@ The following technologies were used to build the application:
    php artisan serve
    ```
 
+## Running the Application with Docker Compose
+
+To run both the application and the MySQL database in Docker containers, follow these steps:
+
+1. **Ensure you're in the project root folder, where the `docker-compose.yml` file is**, which defines both the application and the MySQL database services.
+
+2. **Run the following command to build and start both containers** (application and database):
+   ```bash
+   docker-compose up --build -d
+   ```
+
+3. This will start the application and MySQL containers in detached mode.
+
+4. The database data will be saved in a folder "db_data", that will be created inside the project root folder. 
+
+### Stopping and Removing Docker Containers
+
+To stop and remove the Docker containers, follow these steps:
+
+1. **Stop the running containers**:
+   ```bash
+   docker-compose down
+   ```
+
+2. **Remove the stopped containers and volumes** (optional):
+   ```bash
+   docker-compose down --volumes
+
 ## Next Steps
 
 Check the [Frontend](https://github.com/caio-ferreira-dev/corelab-challenge-web-app-php) repository for instructions related to the frontend part of the application. 🚀

@@ -42,12 +42,41 @@ As seguintes tecnologias foram empregadas na construção da aplicação:
 
 5. **Execute as migrações do banco de dados**:
    ```bash
-''   php artisan migrate
+   php artisan migrate
    ```
 
 6. **Inicie a aplicação**:
    ```bash
    php artisan serve
+   ```
+
+### Rodando a Aplicação com Docker Compose
+
+Para rodar tanto a aplicação quanto o banco de dados MySQL em containers Docker, siga os passos abaixo:
+
+1. **Certifique-se de estar na pasta raiz do projeto, onde o arquivo `docker-compose.yml` está**, que define os serviços tanto da aplicação quanto do banco de dados MySQL.
+
+2. **Execute o seguinte comando para construir e iniciar os containers** (aplicação e banco de dados):
+   ```bash
+   docker-compose up --build -d
+   ```
+
+3. Isso iniciará os containers da aplicação e do MySQL em modo destacado.
+
+4. Os dados do banco de dados serão salvos em uma pasta chamada "db_data", que será criada dentro da pasta raiz do projeto.
+
+### Parando e Removendo os Containers Docker
+
+Para parar e remover os containers Docker, siga os passos abaixo:
+
+1. **Pare os containers em execução**:
+   ```bash
+   docker-compose down
+   ```
+
+2. **Remova os containers parados e volumes** (opcional):
+   ```bash
+   docker-compose down --volumes
    ```
 
 ## Próximos Passos
