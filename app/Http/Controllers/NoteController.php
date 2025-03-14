@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,7 +13,7 @@ class NoteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware(\App\Http\Middleware\AuthenticateApi::class);
     }
 
     public function store(Request $request)
@@ -47,19 +48,27 @@ class NoteController extends Controller
 
     public function update(Request $request, $id)
     {
-        $note = Note::where('id', $id)->where('user_id', Auth::guard('api')->id())->firstOrFail();
+        try {
+            $note = Note::where('id', $id)->where('user_id', Auth::guard('api')->id())->firstOrFail();
 
-        $note->update($request->only(['name', 'content', 'favorite', 'color']));
+            $note->update($request->only(['name', 'content', 'favorite', 'color']));
 
-        return response()->json($note);
+            return response()->json($note);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Nota não encontrada.'], 404);
+        }
     }
 
     public function destroy($id)
     {
-        $note = Note::where('id', $id)->where('user_id', Auth::guard('api')->id())->firstOrFail();
+        try {
+            $note = Note::where('id', $id)->where('user_id', Auth::guard('api')->id())->firstOrFail();
 
-        $note->delete();
+            $note->delete();
 
-        return response()->json(['message' => 'Nota deletada']);
+            return response()->json(['message' => 'Nota deletada']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['error' => 'Nota não encontrada.'], 404);
+        }
     }
 }
