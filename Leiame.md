@@ -39,6 +39,7 @@ As seguintes tecnologias foram empregadas na construção da aplicação:
 
    JWT_SECRET=jwtsecretencryptioncode
    ```
+   *Dica: Execute ```php artisan jwt:secret``` para gerar automaticamente a variável de ambiente JWT_SECRET*
 
 5. **Execute as migrações do banco de dados**:
    ```bash
