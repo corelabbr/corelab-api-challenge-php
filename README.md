@@ -1,80 +1,84 @@
-## Corelab Challenge:
+# Core Lab Challenge - Backend
 
-You are tasked with building a web application that allows users to create and manage their to-do lists. The application should consist of a responsive webpage built in React, and an API built in PHP Laravel to store and manage the to-do lists.
+This repository contains an API built with **Laravel** as part of a challenge provided by [CoreLab](https://www.corelab.com.br/pt).
 
-### The repositories
-The [frontend repository](https://github.com/corelabbr/corelab-challenge-web-app-php)
+## Technologies Used
 
-If you feel more comfortable, you can pick another React framework and show us your skills.
+The following technologies were used to build the application:
 
-The [backend repository](https://github.com/corelabbr/corelab-api-challenge-php)
+- **NodeJS**: 20.17.0
+- **MySQL**: 8.0
+- **Laravel**: 11.0
 
-If you feel more comfortable, you can pick another PHP framework and show us your skills.
+## Setup
 
-### The Layout
-Open the [layout mockup](https://www.figma.com/file/sQrUVHTlyogq3qGdkqGTXN/mockup?node-id=7%3A2&t=ANTOTiqjqGWYuoUr-0) in desktop and mobile version and follow this design as much as possible.
+*This application uses MySQL as the database, but you can modify the configurations in the `.env` file if you wish to use another database.*
 
-### The application should have the following functionality:
+### Installation Steps
 
-1. Users should be able to create, read, update, and delete to-do items using the API.
-2. Users should be able to mark an item as a favorite.
-3. Users should be able to set a color for each to-do item.
-4. The React frontend should display the user's to-do list in a responsive and visually appealing manner, with the ability to filter by favorite items and color.
-5. The favorited items should be displayed at the top of the list.
+1. **Clone or fork this repository** to your local machine.
+   
+2. **Open your terminal** and ensure you're in the project root before running the following commands.
 
-### Technical Requirements:
-1. The backend API should be built in PHP Laravel framework and use a database of your choice (e.g., MySQL, PostgreSQL, etc.).
-2. The frontend should be built in React and use modern web development tools and best practices.
-3. The application should be responsive and visually appealing.
+3. **Install the project dependencies**:
+   ```bash
+   composer install
+   ```
 
-### Deliverables:
-1. A link to a GitHub repository containing the complete source code for the project.
-2. A written description of how to set up and run the application locally.
+4. **Create the `.env` file** based on the `.env.example` file:
+   - Rename the `.env.example` file to `.env`.
+   - Modify the following variables according to your setup:
 
-### Evaluation Criteria:
-1. Code Quality
-2. Code Format
-3. Code Performance
-4. Frontend Design
-5. If your code is Easily Readable
-6. Mobile First approach
-7. Code Responsibility
-8. Features Work
-9. Responsiveness
-10. Does the application meet the functionality requirements listed above?
-11. Is the code well-organized, easy to read, and well-documented?
-12. Are modern web development tools and best practices used?
-13. Is the application visually appealing and responsive?
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=mysql
+   DB_PORT=3306
+   DB_DATABASE=laravel-corelab
+   DB_USERNAME=laravel_user
+   DB_PASSWORD=laravel_pass
 
-### Backend
-Repository: 
-1. PHP: ^7.4
-2. Laravel: ^8.0
-3. Database: Choose your own, you can even use PostgreSQL.
+   JWT_SECRET=jwtsecretencryptioncode
+   ```
+   *Hint: run ```php artisan jwt:secret``` to generate automatically the JWT_SECRET environment variable*
 
-### Frontend
-Repository: 
-1. Node: ^16.15.0
-2. NPM: ^8.5.5
-3. Framework: React TS
-4. Sass or other preprocessor
+5. **Run the database migrations**:
+   ```bash
+   php artisan migrate
+   ```
 
-### Want to impress us even more?
-If you feel comfortable and want to impress us even more, you can do the following:
+6. **Start the application**:
+   ```bash
+   php artisan serve
+   ```
 
-1. Work on correct types and interfaces
-2. Work on eslint rules
-3. Work prettier config
-4. Work on docker containers
-5. Work on tests
-6. Work on CI/CD
+## Running the Application with Docker Compose
 
-### What to do when you finish?
+To run both the application and the MySQL database in Docker containers, follow these steps:
 
-Create a file PULL_REQUEST.md where you will describe what you did and how in as much detail as possible. Feel free to add videos for better explanation.
+1. **Ensure you're in the project root folder, where the `docker-compose.yml` file is**, which defines both the application and the MySQL database services.
 
-Create a new pull request using the same branch name for Backend and Frontend
+2. **Run the following command to build and start both containers** (application and database):
+   ```bash
+   docker-compose up --build -d
+   ```
 
-Send us the pull requests and that's all!
+3. This will start the application and MySQL containers in detached mode.
 
-#### Good luck! The sky is the limit 🚀
+4. The database data will be saved in a folder "db_data", that will be created inside the project root folder. 
+
+### Stopping and Removing Docker Containers
+
+To stop and remove the Docker containers, follow these steps:
+
+1. **Stop the running containers**:
+   ```bash
+   docker-compose down
+   ```
+
+2. **Remove the stopped containers and volumes** (optional):
+   ```bash
+   docker-compose down --volumes
+
+## Next Steps
+
+Check the [Frontend](https://github.com/caio-ferreira-dev/corelab-challenge-web-app-php) repository for instructions related to the frontend part of the application. 🚀
