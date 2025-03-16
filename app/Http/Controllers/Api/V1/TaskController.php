@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreTaskRequest;
-use App\Http\Requests\V1\UpdateTaskRequest;
+use App\Http\Requests\V1\Task\StoreTaskRequest;
+use App\Http\Requests\V1\Task\UpdateTaskRequest;
 use App\Models\Task;
 use App\Services\V1\TaskService;
 use Illuminate\Database\Eloquent\Collection;
@@ -46,7 +46,7 @@ class TaskController extends Controller
     {
         try {
             $this->taskService->destroy($id);
-            return response()->json(['message' => 'Tarefa excluida com sucesso!'], 200);
+            return response()->json(['message' => 'Tarefa excluida com sucesso!'], 204);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Tarefa não encontrada.'], 404);
         }  
