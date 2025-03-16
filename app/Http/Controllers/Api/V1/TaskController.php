@@ -20,15 +20,16 @@ class TaskController extends Controller
     {
         $favorite = $request->query('favorite'); 
         $color = $request->query('color'); 
+        $userId = $request->user()->id; 
 
-        $tasks = $this->taskService->index($favorite, $color);
+        $tasks = $this->taskService->index($favorite, $color, $userId);
 
         return response()->json($tasks);
     }
 
     public function store(StoreTaskRequest $request): JsonResponse
     {
-        $this->taskService->store($request->all());
+        $this->taskService->store($request->all(), $request->user()->id);
         return response()->json(['message' => 'Tarefa criada com sucesso!'], 201);
     }
 
@@ -46,7 +47,7 @@ class TaskController extends Controller
     {
         try {
             $this->taskService->destroy($id);
-            return response()->json(['message' => 'Tarefa excluida com sucesso!'], 204);
+            return response()->json(['message' => 'Tarefa excluida com sucesso!'], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Tarefa não encontrada.'], 404);
         }  

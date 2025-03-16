@@ -44,7 +44,7 @@ class UserController extends Controller
             $success['name'] = $user['name'];
             return response()->json(['message' => 'Logado com sucesso', 'access_token' => $success['token'], "username" => $success['name']], 200);
         } else {
-            return response()->json(['Sem autorização'], 401);
+            return response()->json(['message' => 'E-mail ou senha incorretos'], 401);
         }
     }
 }

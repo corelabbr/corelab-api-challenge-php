@@ -4,10 +4,11 @@ namespace App\Services\V1;
 
 use App\Models\Task;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class TaskService 
 {
-    public function index(?bool $favorite = null, ?string $color = null): Collection
+    public function index(?bool $favorite = null, ?string $color = null,  ?int $userId = null): Collection
     {
       $query = Task::query();
 
@@ -19,11 +20,12 @@ class TaskService
           $query->where('color', $color);
       }
   
-      return $query->get();
+      return $query->orderBy('created_at', 'desc')->where('user_id', $userId)->get();
     }
 
-    public function store(array $taskData): Task
-    {
+    public function store(array $taskData, int $user): Task
+    {   
+        $taskData["user_id"] = $user;
         return Task::create($taskData);
     }
 

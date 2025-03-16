@@ -9,8 +9,8 @@ Route::prefix('v1/user')->controller(UserController::class)->group(function() {
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
-//->middleware('auth:sanctum')
-Route::prefix('v1')->controller(TaskController::class)->group(function() {
+    
+Route::prefix('v1')->middleware('auth:sanctum')->controller(TaskController::class)->group(function() {
     Route::get('/task', 'index');
     Route::post('/task', 'store');
     Route::put('/task/{id}', 'update');
