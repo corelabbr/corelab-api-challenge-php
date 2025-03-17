@@ -118,7 +118,7 @@ volumes:
 ### Iniciando o projeto
 ```
 Navegue até a pasta laravel-app e execute o comando ./sail up -d caso o docker nao esteja instalado 
-navegue ate esse link e la terá o passo à passo para cada sistema operacional.
+navegue ate esse link https://docs.docker.com/engine/install/ e la terá o passo à passo para cada sistema operacional.
 
 ```
 # Obs :
