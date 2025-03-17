@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  app:
+    image: php:8.2-fpm
+    container_name: todo-list-app
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - todo-list-network
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - PHP_IDE_CONFIG=serverName=todo-list-app
+
+  db:
+    image: mysql
+    container_name: todo-list-db
+    environment:
+        MYSQL_ROOT_PASSWORD: root         # Senha para o usuário root
+        MYSQL_DATABASE: todo_list         # Banco de dados a ser criado
+        MYSQL_USER: user                  # Criação de um usuário regular
+        MYSQL_PASSWORD: password          # Senha para o usuário regular
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - todo-list-network
+    ports:
+      - "3306:3306"
+
+networks:
+  todo-list-network:
+    driver: bridge
+
+volumes:
+  db_data:
