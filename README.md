@@ -1,6 +1,14 @@
+### Desafio Backend
+ Tecnologias utilizadas: 
+ 
+ 1. PHP: ^7.4
+ 2. Laravel: ^8.0
+ 3. MySql
+ 4. Docker
+
 ### Como testar?
-- Clone o repo
-- roda composer install
-- sobe as imagens no docker rodando docker compose up -d
-- roda as migrates php artisan migrate
-- rode o projeto php artisan serve
+- Clone o repositório
+- Rode `composer install`
+- Sobe as imagens no docker rodando `docker compose up -d`
+- Rode as migrates com o comando `php artisan migrate`
+- Rode o projeto com `php artisan serve`
