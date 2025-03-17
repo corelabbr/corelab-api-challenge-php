@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
 use App\Models\Categoria;
+use Exception;
 use Illuminate\Support\Facades\Gate;
 
 class CategoriasController extends Controller
@@ -49,8 +50,8 @@ class CategoriasController extends Controller
     {
          try {
             return $categoria;
-        } catch (ModelNotFoundException $exception) {
-            throw new ModelNotFoundException('categoria não encontrada!', $exception->getCode(), $exception);
+        } catch (\Exception $exception) {
+            throw new Exception('categoria não encontrada!', $exception->getCode(), $exception);
         }
     }
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Exception;
 use Illuminate\Support\Facades\Gate;
 
 class TasksController extends Controller
@@ -14,16 +16,13 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $task = Task::all();
+        $task = auth()->user()->tasks()->simplePaginate();
+
         if ($task->isEmpty()) {
             return response()->json(['error' => 'Tarefas ainda nao cadastradas!'], 404);
-        } else {
-            try {
-                return response()->json(['msg' => 'Tarefas localizados com sucesso!', 'task' => $task], 200);
-            } catch (\Exception $e) {
-                return response()->json(['msg' => 'Tarefas localizados com sucesso!' . $e->getMessage()], 500);
-            }
         }
+
+        return TaskResource::collection($task);
     }
 
     /**
@@ -32,7 +31,7 @@ class TasksController extends Controller
     public function store(StoreTaskRequest $request)
     {
         try {
-            $request->validate([]);
+            $request->validated();
 
             $task = Task::create($request->all());
             return response()->json(['msg' => 'Tarefa criada com sucesso!', 'task' => $task], 201);
@@ -47,9 +46,9 @@ class TasksController extends Controller
     public function show(Task $task)
     {
         try {
-            return $task;
-        } catch (ModelNotFoundException $exception) {
-            throw new ModelNotFoundException('Task não encontrada!', $exception->getCode(), $exception);
+            return auth()->user()->tasks()->findOrFail($task->id);
+        } catch (\Exception $exception) {
+            throw new Exception('Task não encontrada!', $exception->getCode(), $exception);
         }
     }
 

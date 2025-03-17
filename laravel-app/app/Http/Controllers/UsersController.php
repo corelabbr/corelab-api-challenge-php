@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,17 +15,12 @@ class UsersController extends Controller
      */
 
     public function index()
-    {
-        $user = User::all();
+    {      
+        $user = User::query()->simplePaginate();
         if ($user->isEmpty()) {
             return response()->json(['error' => 'Usuarios ainda nao cadastradas!'], 404);
-        } else {
-            try {
-                return response()->json(['msg' => 'Usuarios localizados com sucesso!', 'user' => $user], 200);
-            } catch (\Exception $e) {
-                return response()->json(['msg' => 'Usuarios localizados com sucesso!' . $e->getMessage()], 500);
-            }
         }
+        return UserResource::collection($user);
     }
 
     /**
@@ -36,8 +32,13 @@ class UsersController extends Controller
         try {
             $request->validate([]);
 
-            $user = User::create($request->all());
-            return response()->json(['msg' => 'Tarefa criada com sucesso!', 'user' => $user], 201);
+            $user = User::create([
+                'nomeUser' => $request->nomeUser,
+                'email' => $request->email,
+                'senha' => bcrypt($request->senha)
+            ]);
+
+            return UserResource::make($user);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erro ao criar tarefa: ' . $e->getMessage()], 500);
         }
@@ -48,11 +49,7 @@ class UsersController extends Controller
      */
     public function show(user $user)
     {
-        try {
-            return $user;
-        } catch (ModelNotFoundException $exception) {
-            throw new ModelNotFoundException('User não encontrada!', $exception->getCode(), $exception);
-        }
+        return UserResource::make($user);
     }
 
     /**
@@ -60,19 +57,9 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        try {
-            // Validação dos dados
-            $request->validate([]);
+        $user->update($request->validated());
 
-            if (!$user) {
-                return response()->json(['error' => 'User não encontrada.'], 404);
-            } else {
-                $user->update($request->all());
-                return response()->json(['msg' => 'User atualizada com sucesso!', 'user' => $user], 200);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Erro ao atualizar User: ' . $e->getMessage()], 500);
-        }
+        return UserResource::make($user);
     }
 
     /**
@@ -80,13 +67,10 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-         try {
-            if (!$user) {
-                return response()->json(['error' => 'Tarefa não encontrada.'], 404);
-            } else {
-                $user->delete();
-                return response()->json(['msg' => 'Tarefa excluída com sucesso!'], 200);
-            }
+        try {
+
+            $user->delete();
+            return response()->json(['msg' => 'Tarefa excluída com sucesso!'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Erro ao excluir tarefa: ' . $e->getMessage()], 500);
         }
