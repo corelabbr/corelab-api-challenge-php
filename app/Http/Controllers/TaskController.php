@@ -13,7 +13,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        return response()->json([
+            'success' => true,
+            'message' => 'Tarefas encontradas.',
+            'data' => Task::all()
+        ]);
     }
 
     /**
@@ -39,7 +43,7 @@ class TaskController extends Controller
         try {
 
             $task = Task::create($request->all());
-
+            $task->refresh();
             return response()->json([
                 'success' => true,
                 'message' => 'Tarefa criada com sucesso.',
@@ -81,7 +85,7 @@ class TaskController extends Controller
     {
         $request->validate(
             [
-                'title' => 'required|string',
+                'title' => 'nullable|string',
                 'description' => 'nullable|string',
                 'background_color' => 'nullable|string',
                 'is_favorite' => 'nullable|boolean',

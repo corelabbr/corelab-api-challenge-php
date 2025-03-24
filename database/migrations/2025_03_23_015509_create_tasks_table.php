@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('background_color')->default("#ffffff");
+            $table->string('background_color')->default("bg-white");
             $table->boolean('is_favorite')->default(false);
             $table->timestamps();
             $table->softDeletes();
