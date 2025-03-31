@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+{{ factoryImport }}
+
+class {{ class }} extends BaseModel
+{
+    {{ factory }}
+}

@@ -1,0 +1,1003 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CoreLab API Todo-List",
+        "description": "Documentação para a CoreLab REST API",
+        "contact": {
+            "email": "guilhermedelmiro11@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Registra um novo usuário",
+                "description": "Registra um novo usuário.",
+                "operationId": "registerUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário registrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|laravel_sanctum_mFOCwcm6..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Loga um usuário",
+                "description": "Loga usuário e cria um token.",
+                "operationId": "loginUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login bem-sucedido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|laravel_sanctum_mFOCwcm6..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciais inválidas"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Desloga um usuário",
+                "description": "Desloga usuário (revoga o token).",
+                "operationId": "logoutUser",
+                "responses": {
+                    "200": {
+                        "description": "Logout bem-sucedido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Deslogado com sucesso"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Autenticação"
+                ],
+                "summary": "Obtenha informações do usuário autenticado",
+                "description": "Obtenha o usuário autenticado.",
+                "operationId": "getAuthUser",
+                "responses": {
+                    "200": {
+                        "description": "Informações do usuário recuperadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Tarefas"
+                ],
+                "summary": "Obter todas as tarefas do usuário autenticado",
+                "description": "Lista todas as tarefas.",
+                "operationId": "getTasks",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filtrar tarefas por status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "pending",
+                                "in_progress",
+                                "completed"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listagem de tarefas bem-sucedida",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Task"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tarefas"
+                ],
+                "summary": "Cria uma nova tarefa",
+                "description": "Armarzena uma nova tarefa.",
+                "operationId": "storeTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Tarefa criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tarefas"
+                ],
+                "summary": "Obtém uma tarefa específica",
+                "description": "Exibe uma tarefa específica.",
+                "operationId": "getTask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da tarefa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tarefa listada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Acesso proibido"
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tarefas"
+                ],
+                "summary": "Atualiza uma tarefa específica",
+                "description": "Atualiza uma tarefa específica.",
+                "operationId": "updateTask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Tarefa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa atualizada com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Acesso proibido"
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tarefas"
+                ],
+                "summary": "Remove a tarefa específica",
+                "description": "Remove a tarefa específica.",
+                "operationId": "deleteTask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da Tarefa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Tarefa excluída com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Acesso proibido"
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/colors": {
+            "get": {
+                "tags": [
+                    "Tarefas (Cores)"
+                ],
+                "summary": "Obter todas as cores disponíveis para tarefas",
+                "description": "Obter todas as cores disponíveis para tarefas.",
+                "operationId": "getTaskColors",
+                "responses": {
+                    "200": {
+                        "description": "Lista de cores disponíveis",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskColor"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{id}/color/{colorId}": {
+            "put": {
+                "tags": [
+                    "Tarefas (Cores)"
+                ],
+                "summary": "Atualizar a cor de uma tarefa",
+                "description": "Atualizar a cor de uma tarefa específica.",
+                "operationId": "updateTaskColor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da tarefa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "colorId",
+                        "in": "path",
+                        "description": "ID da cor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cor da tarefa atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Task"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Proibido"
+                    },
+                    "404": {
+                        "description": "Tarefa ou cor não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/favorites": {
+            "get": {
+                "tags": [
+                    "Tarefas (Favoritos)"
+                ],
+                "summary": "Obter todas as tarefas favoritas do usuário autenticado",
+                "description": "Obter as tarefas favoritas do usuário autenticado.",
+                "operationId": "getFavoriteTasks",
+                "responses": {
+                    "200": {
+                        "description": "Lista de tarefas favoritas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Task"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{id}/favorite": {
+            "post": {
+                "tags": [
+                    "Tarefas (Favoritos)"
+                ],
+                "summary": "Alternar o status de favorito de uma tarefa",
+                "description": "Alternar o status de favorito de uma tarefa.",
+                "operationId": "toggleFavoriteTask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da tarefa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status alterado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "is_favorited": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Tarefa adicionada aos favoritos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    },
+                    "403": {
+                        "description": "Proibido"
+                    },
+                    "404": {
+                        "description": "Tarefa não encontrada"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Task": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Documentação completa do projeto tal..."
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Escrever documentação abrangente para projeto tal..."
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "in_progress",
+                            "completed"
+                        ],
+                        "example": "pending"
+                    },
+                    "status_label": {
+                        "type": "string",
+                        "example": "Pendente"
+                    },
+                    "color": {
+                        "properties": {
+                            "id": {
+                                "description": "ID da cor",
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "name": {
+                                "description": "Nome da cor",
+                                "type": "string",
+                                "example": "Azul"
+                            },
+                            "hex_code": {
+                                "description": "Cor em formato hexadecimal",
+                                "type": "string",
+                                "example": "#0000FF"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "due_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-12-31"
+                    },
+                    "is_overdue": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "is_favorited": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "favorites_count": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-01 12:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-02 13:00:00"
+                    },
+                    "user": {
+                        "properties": {
+                            "id": {
+                                "description": "ID do usuário",
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "name": {
+                                "description": "Nome do usuário",
+                                "type": "string",
+                                "example": "João Silva"
+                            },
+                            "profile": {
+                                "properties": {
+                                    "id": {
+                                        "description": "ID do perfil",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "type": {
+                                        "description": "Tipo do perfil",
+                                        "type": "string",
+                                        "enum": [
+                                            "admin",
+                                            "manager",
+                                            "member"
+                                        ],
+                                        "example": "admin"
+                                    },
+                                    "description": {
+                                        "description": "Descrição do perfil",
+                                        "type": "string",
+                                        "example": "Administrador"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "description": "ID do usuário",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Nome de usuário",
+                        "type": "string",
+                        "example": "João Silva"
+                    },
+                    "email": {
+                        "description": "Email de usuário",
+                        "type": "string",
+                        "format": "email",
+                        "example": "joao@email.com"
+                    },
+                    "profile": {
+                        "properties": {
+                            "id": {
+                                "description": "ID do perfil",
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "type": {
+                                "description": "Tipo de perfil de usuário",
+                                "type": "string",
+                                "enum": [
+                                    "admin",
+                                    "manager",
+                                    "member"
+                                ],
+                                "example": "member"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "created_at": {
+                        "description": "Data da criação",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-01 12:00:00"
+                    },
+                    "updated_at": {
+                        "description": "Última data de atualização",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-01-02 13:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "Error": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Mensagem de erro"
+                    },
+                    "errors": {
+                        "properties": {
+                            "field": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "example": "O campo é necessário"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskColor": {
+                "title": "taskColor",
+                "description": "Modelo de cores",
+                "properties": {
+                    "id": {
+                        "description": "ID da cor",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Nome da cor",
+                        "type": "string",
+                        "example": "Azul"
+                    },
+                    "hex_code": {
+                        "description": "Código hexadecimal da cor",
+                        "type": "string",
+                        "example": "#0000FF"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "joao@email.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "Senha1234@"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "João Silva"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "joao@email.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "Senha1234@"
+                    },
+                    "password_confirmation": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "Senha1234@"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTaskRequest": {
+                "required": [
+                    "title"
+                ],
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Concluir a documentação do projeto"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Escrever documentação abrangente para o projeto"
+                    },
+                    "status": {
+                        "description": "Status da tarefa",
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "in_progress",
+                            "completed"
+                        ],
+                        "example": "pending"
+                    },
+                    "color_id": {
+                        "description": "ID da cor da tarefa",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "due_date": {
+                        "description": "Data de vencimento no formato YYYY-MM-DD",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-12-31"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskRequest": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Documentação do projeto atualizado"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Documentação abrangente atualizada para o projeto"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "in_progress",
+                            "completed"
+                        ],
+                        "example": "in_progress"
+                    },
+                    "color_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "due_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-12-31"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Tarefas",
+            "description": "Endpoints para Gestão das Tarefas"
+        },
+        {
+            "name": "Autenticação",
+            "description": "Autenticação"
+        },
+        {
+            "name": "Tarefas (Cores)",
+            "description": "Tarefas (Cores)"
+        },
+        {
+            "name": "Tarefas (Favoritos)",
+            "description": "Tarefas (Favoritos)"
+        }
+    ]
+}
