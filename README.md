@@ -12,7 +12,7 @@ The [backend repository](https://github.com/corelabbr/corelab-api-challenge-php)
 If you feel more comfortable, you can pick another PHP framework and show us your skills.
 
 ### The Layout
-Open the [layout mockup](https://www.figma.com/file/sQrUVHTlyogq3qGdkqGTXN/mockup?node-id=7%3A2&t=ANTOTiqjqGWYuoUr-0) in desktop and mobile version and follow this design as much as possible.
+Open the [layout mockup](https://www.figma.com/make/cy34jtb1qvVC5org8qSzfY/Core-Notes-Application?node-id=0-1&p=f&t=QKnL3HQjU5wH2CX5-0&fullscreen=1) in desktop and mobile version and follow this design as much as possible.
 
 ### The application should have the following functionality:
 
